@@ -1,61 +1,55 @@
-const Joi = require('joi');
-const { password } = require('./custom.validation');
+const Joi = require('Joi');
+const {custom, password} = require('./custom.validation')
 
 const register = {
-  body: Joi.object().keys({
-    email: Joi.string().required().email(),
-    password: Joi.string().required().custom(password),
-    firstName: Joi.string().required(),
-    lastName: Joi.string().required(),
-  }),
-};
+  body : Joi.objects().keys({
+    email : Joi.string().trim().email().required(),
+    password : Joi.string().trim().custom(password).required(),
+    phoneNumber : Joi.string().trim().required(),
+    role : Joi.string().default('user')
+  })
+}
 
 const login = {
-  body: Joi.object().keys({
-    email: Joi.string().required(),
-    password: Joi.string().required(),
-  }),
-};
+  body : Joi.objects.keys({
+    email : Joi.string().trim().email().required(),
+    password: Joi.string().custom(password).required()
+  })
+}
 
 const logout = {
-  body: Joi.object().keys({
-    refreshToken: Joi.string().required(),
-  }),
-};
+  body : Joi.objects.keys({
+    refreshToken : Joi.string().trim().required(),
+  })
+}
 
-const refreshTokens = {
-  body: Joi.object().keys({
-    refreshToken: Joi.string().required(),
-  }),
-};
+const refreshToken = {
+  body : Joi.objects.keys({
+    refreshToken : Joi.string().trim().required(),
+  })
+}
 
-const forgotPassword = {
-  body: Joi.object().keys({
-    email: Joi.string().email().required(),
-  }),
-};
+const forgetPassword = {
+  body: Joi.objects().key({
+    email: Joi.string().trim().email().required()
+  })
+}
 
-const resetPassword = {
-  query: Joi.object().keys({
-    token: Joi.string().required(),
+const resetPassord = {
+  query:Joi.objects().keys({
+    token:Joi.string().trim().required()
   }),
-  body: Joi.object().keys({
-    password: Joi.string().required().custom(password),
-  }),
-};
-
-const verifyEmail = {
-  query: Joi.object().keys({
-    token: Joi.string().required(),
-  }),
-};
+  body:Joi.objects().keys({
+    password: Joi.string().custom(password).required()
+  })
+}
 
 module.exports = {
   register,
+  resetPassord,
+  refreshToken,
   login,
   logout,
-  refreshTokens,
-  forgotPassword,
-  resetPassword,
-  verifyEmail,
-};
+  forgetPassword,
+
+}

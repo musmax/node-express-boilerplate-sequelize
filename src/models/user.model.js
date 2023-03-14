@@ -38,6 +38,26 @@ module.exports = (sequelize, dataType) => {
     isEmailVerified: {
       type: dataType.BOOLEAN,
     },
+    phoneNumbers:{
+      type : dataType.STRING,
+      allowNull : false,
+      trim:true, 
+    },
+    profileImg:{
+      type : dataType.STRING,
+      allowNull : false,
+     
+    },
+    role:{
+      type : dataType.STRING,
+      allowNull : false,
+      trim:true,
+    },
+    userName:{
+      type : dataType.STRING,
+      allowNull : false,
+      trim:true,
+    },
   });
 
   return user;
